@@ -23,7 +23,7 @@ const Last = () => {
 
       <div className="w-full md:w-[720px] h-auto md:h-[603px] mt-6 md:mt-0">
         <Image
-          src="/image.png"
+          src="/d1.png"
           alt="Decorative"
           className="w-full h-full object-cover"
         />
