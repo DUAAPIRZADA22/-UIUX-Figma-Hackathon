@@ -9,7 +9,7 @@ import Last from "./components/Last";
 const Page = () => {
   return (
     <div className="bg-white">
-      <Navbar />
+    
 
       <div className="relative sm:-mt-28 md:-mt-20">
         <div className="flex flex-col md:flex-row items-center justify-start px-6 md:px-8 space-x-0">
