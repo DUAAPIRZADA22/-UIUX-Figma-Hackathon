@@ -35,7 +35,7 @@ const Page = () => {
             <img
               src="/home.png"
               alt="Furniture"
-              className="w-full h-auto object-cover md:max-w-[520px] sm:w-full"
+              className="w-full h-auto object-cover md:max-w-[520px] sm:w-full md:h-[584px] sm:h-[400px] lg:h-[584px]"
             />
           </div>
         </div>
@@ -51,6 +51,7 @@ const Page = () => {
 };
 
 export default Page;
+
 
 
 
