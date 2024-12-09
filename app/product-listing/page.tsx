@@ -17,24 +17,25 @@ const Page = () => {
 
   return (
     <div className="bg-white min-h-screen flex flex-col">
-
       <div className="flex-1 px-4 sm:px-8">
-        <div className="flex flex-col md:flex-row items-center mb-20 mt-[-150px]">
+        <div className="flex flex-col md:flex-row items-center mb-20 mt-[-100px]">
           <div className="md:w-1/2 flex justify-center md:justify-start">
             <Image
               src="/img.png"
               alt="chair image"
               width={721}
               height={759}
-              className="object-contain max-w-full"
+              className="object-contain max-w-full sm:w-[90%] md:w-[80%]"
             />
           </div>
 
           <div className="md:w-1/2 flex flex-col justify-start md:ml-12 mt-10">
-            <h1 className="font-clash-display font-extrabold text-darkPrimary text-[32px] text-center md:text-left sm:text-[40px]">
+            <h1 className="font-extrabold text-darkPrimary text-[32px] sm:text-[40px] text-center md:text-left">
               The Dandy Chair
             </h1>
-            <h2 className="text-[24px] text-center md:text-left mt-4 sm:text-[26px]">£250</h2>
+            <h2 className="text-[24px] sm:text-[26px] text-center md:text-left mt-4">
+              £250
+            </h2>
 
             <h3 className="font-clash-display text-[20px] sm:text-[22px] text-darkPrimary mt-6">
               Description
@@ -84,6 +85,7 @@ const Page = () => {
           </div>
         </div>
 
+      
         <div className="mt-10 mb-10">
           <h1 className="font-clash-display text-[28px] sm:text-[32px] text-darkPrimary mb-6 text-left">
             You might also like
@@ -101,12 +103,15 @@ const Page = () => {
                 <h3 className="text-[18px] sm:text-[20px] font-bold text-darkPrimary">
                   {item.name}
                 </h3>
-                <p className="text-[16px] sm:text-[18px] text-gray-700">{item.price}</p>
+                <p className="text-[16px] sm:text-[18px] text-gray-700">
+                  {item.price}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </div>
+
       <div className="w-[170px] h-[56px] bg-gray-100 text-darkPrimary flex items-center justify-center mx-auto mb-8">
         <button className="w-full h-full text-center font-satoshi text-sm">
           View Collection
@@ -120,6 +125,7 @@ const Page = () => {
 };
 
 export default Page;
+
 
 
 
