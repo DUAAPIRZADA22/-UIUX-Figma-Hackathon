@@ -1,5 +1,3 @@
-
-
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -10,15 +8,15 @@ import Section from "../components/Section";
 const page = () => {
   return (
     <div>
-      <section className="sm:h-48 w-full flex max-sm:flex-col max-sm:gap-10 max-sm:pt-10 items-center justify-between md:px-24 px-5">
+      <section className="sm:h-48 w-full flex max-sm:flex-col max-sm:gap-10 sm:pt-4 pt-10 sm:mt-0 mt-0 items-center justify-between md:px-24 px-5">
         <h1 className="sm:text-2xl text-xl font-clash text-darkPrimary sm:w-[500px] max-xxs:px-3">
           A brand built on the love of craftmanship, quality and
           outstanding customer service
         </h1>
         <Link href="/products">
-        <button className="bg-lightGray h-12 sm:w-36 w-full sm:text-sm text-xs">
-          View our products
-        </button>
+          <button className="bg-lightGray h-12 sm:w-36 w-full sm:text-sm text-xs">
+            View our products
+          </button>
         </Link>
       </section>
       <ImageSection />
@@ -28,12 +26,13 @@ const page = () => {
         image="/aboutt.png"
       />
       <Brand />
-      <Join/>
+      <Join />
     </div>
   );
 };
 
 export default page;
+
 const ImageSection = () => {
   return (
     <div className="flex mmd:px-20 px-5 max-md:flex-col sm:gap-4 gap-5 py-10">
@@ -53,13 +52,14 @@ const TextSection = () => {
           It started with a small idea
         </h1>
         <p className="max-sm:text-sm">
-        A global brand with local beginnings, our story begain in a small studio in South London in early 2014
+          A global brand with local beginnings, our story began in a small
+          studio in South London in early 2014
         </p>
       </div>
       <Link href="/products">
         <button className="bg-primary h-12 md:w-36 w-full capitalize text-sm">
-        view collection
-      </button>
+          view collection
+        </button>
       </Link>
     </section>
   );

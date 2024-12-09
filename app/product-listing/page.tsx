@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
 import { TbTruckDelivery } from "react-icons/tb";
 import Brand from "../components/Brand";
 import Join from "../components/Join";
@@ -33,22 +32,20 @@ const Page = () => {
         </div>
       )}
 
-      <Navbar />
-
-      <div className="flex-1">
-        <div className="flex flex-col md:flex-row px-8 mb-20 mt-[-190px]">
+      <div className="flex-1 px-4 sm:px-8">
+        <div className="flex flex-col md:flex-row items-center mb-20 mt-[-150px]">
           <div className="md:w-1/2 flex justify-center md:justify-start">
             <Image
               src="/img.png"
               alt="chair image"
               width={721}
               height={759}
-              className="object-contain"
+              className="object-contain max-w-full"
             />
           </div>
 
-          <div className="md:w-1/2 flex flex-col justify-start md:ml-12 mt-28">
-            <h1 className="font-clash-display text-darkPrimary text-[32px] text-center md:text-left mt-0 sm:text-[40px]">
+          <div className="md:w-1/2 flex flex-col justify-start md:ml-12 mt-10">
+            <h1 className="font-clash-display font-extrabold text-darkPrimary text-[32px] text-center md:text-left sm:text-[40px]">
               The Dandy Chair
             </h1>
             <h2 className="text-[24px] text-center md:text-left mt-4 sm:text-[26px]">£250</h2>
@@ -71,7 +68,7 @@ const Page = () => {
             <h3 className="font-clash-display text-darkPrimary text-[20px] sm:text-[22px] mt-4 mb-4">
               Dimensions
             </h3>
-            <table className="w-[100%] sm:w-[260px] h-auto sm:h-[110px] mt-4 border text-left text-[13px] sm:text-[15px]">
+            <table className="w-full sm:w-[260px] mt-4 border text-left text-[13px] sm:text-[15px]">
               <thead>
                 <tr className="border-b">
                   <th className="py-3">Height</th>
@@ -88,17 +85,13 @@ const Page = () => {
               </tbody>
             </table>
 
-            <div className="flex items-center justify-between mt-6 gap-10">
-              <h3 className="font-clash-display text-darkPrimary text-bold mt-6 mb-20">
-                Amount
-              </h3>
-              <div className="flex items-center gap-6 text-xl font-bold mr-32 mb-16">
+            <div className="flex flex-col sm:flex-row items-center mt-6 gap-6">
+              <div className="flex items-center gap-6 text-xl font-bold">
                 <button className="text-gray-500 hover:text-black">-</button>
                 <span className="text-black">1</span>
                 <button className="text-gray-500 hover:text-black">+</button>
               </div>
-
-              <button className="font-satoshi w-[160px] h-[60px] text-white bg-darkPrimary mb-20 rounded-md hover:bg-darkPrimary-light">
+              <button className="font-satoshi w-[160px] h-[60px] text-white bg-darkPrimary rounded-md hover:bg-darkPrimary-light">
                 Add to cart
               </button>
             </div>
@@ -106,16 +99,18 @@ const Page = () => {
         </div>
 
         <div className="mt-10 mb-10">
-          <h1 className="font-clash-display text-[28px] sm:text-[32px] text-darkPrimary mb-6 text-left px-8">
+          <h1 className="font-clash-display text-[28px] sm:text-[32px] text-darkPrimary mb-6 text-left">
             You might also like
           </h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {recommendedItems.map((item) => (
               <div key={item.id} className="text-center">
                 <Image
                   src={item.image}
                   alt={item.name}
-                  className="w-[100%] sm:w-[305px] h-auto sm:h-[375px] object-cover mx-auto mb-4"
+                  width={305}
+                  height={375}
+                  className="object-cover mx-auto mb-4"
                 />
                 <h3 className="text-[18px] sm:text-[20px] font-bold text-darkPrimary">
                   {item.name}
@@ -126,7 +121,7 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="w-[170px] h-[56px] bg-gray-100 text-darkPrimary mb-8 flex items-center justify-center gap-2 mt-[30px] mx-auto">
+      <div className="w-[170px] h-[56px] bg-gray-100 text-darkPrimary flex items-center justify-center mx-auto mb-8">
         <button className="w-full h-full text-center font-satoshi text-sm">
           View Collection
         </button>
@@ -139,6 +134,7 @@ const Page = () => {
 };
 
 export default Page;
+
 
 
 

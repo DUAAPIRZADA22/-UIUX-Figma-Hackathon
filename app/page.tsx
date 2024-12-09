@@ -6,6 +6,7 @@ import Products from "./components/Products";
 import Join from "./components/Join";
 import Last from "./components/Last";
 
+
 const Page = () => {
   return (
     <div className="bg-white">
@@ -35,7 +36,7 @@ const Page = () => {
 
           <div className="w-full md:w-[520px] h-auto flex justify-center md:justify-start mt-6 md:mt-0">
             <img
-              src="home.png"
+              src="/home.png"
               alt="Furniture"
               className="w-full h-auto object-cover"
             />

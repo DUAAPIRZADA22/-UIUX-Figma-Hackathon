@@ -4,7 +4,7 @@ import React from "react";
 const page = () => {
   return (
     <div className="bg-white">
-      <div className="mb-10 -mt-32 px-6 sm:px-10">
+      <div className="mb-10 -mt-20 px-6 sm:px-10">
         <h1 className="text-3xl font-bold mb-6">Your Shopping Cart</h1>
         <div className="overflow-x-auto">
           <table className="table-auto w-full border-collapse mb-8">
