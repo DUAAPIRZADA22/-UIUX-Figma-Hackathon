@@ -30,7 +30,7 @@ const Page = () => {
           </div>
 
           <div className="md:w-1/2 flex flex-col justify-start md:ml-12 mt-10">
-            <h1 className="font-extrabold text-darkPrimary text-[32px] sm:text-[40px] text-center md:text-left">
+            <h1 className="font-extrabold text-blue-950 text-[32px] sm:text-[40px] text-center md:text-left border-b-2 border-gray-300">
               The Dandy Chair
             </h1>
             <h2 className="text-[24px] sm:text-[26px] text-center md:text-left mt-4">
@@ -85,7 +85,7 @@ const Page = () => {
           </div>
         </div>
 
-      
+    
         <div className="mt-10 mb-10">
           <h1 className="font-clash-display text-[28px] sm:text-[32px] text-darkPrimary mb-6 text-left">
             You might also like
@@ -125,6 +125,7 @@ const Page = () => {
 };
 
 export default Page;
+
 
 
 
