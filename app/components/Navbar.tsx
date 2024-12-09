@@ -34,7 +34,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-
+     
       {isMenuOpen && (
         <div className="fixed inset-0 z-50 flex">
           <div
@@ -62,8 +62,9 @@ const Navbar = () => {
         </div>
       )}
 
+   
       <div className="justify-center items-start h-auto sm:h-[250px] font-satoshi text-[18px] mt-4 text-gray-500 font-light sm:block hidden">
-        <div className="grid gap-4 sm:gap-12 grid-cols-2 sm:flex sm:justify-center">
+        <div className="grid gap-2 sm:gap-4 grid-cols-3 sm:grid-cols-4 md:grid-cols-7 sm:flex sm:justify-center">
           {[
             "Plant pots",
             "Ceramics",
@@ -87,6 +88,7 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
 
 
 
