@@ -6,7 +6,6 @@ import { FiShoppingCart } from "react-icons/fi";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Link from "next/link";
 
-
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -15,7 +14,6 @@ const Navbar = () => {
   return (
     <div className="bg-white relative">
       <nav className="flex items-center justify-between px-5 h-16 border-b border-gray-200">
-        
         <div className="flex justify-start">
           <CiSearch className="w-5 h-5" />
         </div>
@@ -25,9 +23,9 @@ const Navbar = () => {
         </div>
 
         <div className="flex justify-end gap-4">
-        <Link href="/cart">
-          <FiShoppingCart className="w-5 h-5" />
-      </Link>
+          <Link href="/cart">
+            <FiShoppingCart className="w-5 h-5" />
+          </Link>
           <VscAccount className="w-5 h-5" />
           <GiHamburgerMenu
             className="w-6 h-6 sm:hidden cursor-pointer"
@@ -89,6 +87,7 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
 
 
 

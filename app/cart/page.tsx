@@ -4,27 +4,8 @@ import React from "react";
 const page = () => {
   return (
     <div className="bg-white">
-      <div className="fixed bottom-6 right-6 z-50 cursor-pointer">
-        <button className="bg-darkPrimary text-white rounded-full p-3">
-          ↑
-        </button>
-      </div>
-
-      <div className="mb-10 lg:-mt-10 mt-0 px-6 sm:px-10 pt-16">
-        <nav className="bg-white shadow-lg fixed top-0 w-full z-40">
-        
-          <div className="flex justify-between items-center p-4">
-            <h2 className="text-lg font-bold">Logo</h2>
-            <div className="space-x-4">
-              <a href="#home" className="text-darkPrimary">Home</a>
-              <a href="#shop" className="text-darkPrimary">Shop</a>
-              <a href="#contact" className="text-darkPrimary">Contact</a>
-            </div>
-          </div>
-        </nav>
-
-        <h1 className="text-3xl font-bold mb-6 lg:mt-4 mt-24">Your Shopping Cart</h1>
-
+      <div className="mb-10 -mt-32 px-6 sm:px-10">
+        <h1 className="text-3xl font-bold mb-6">Your Shopping Cart</h1>
         <div className="overflow-x-auto">
           <table className="table-auto w-full border-collapse mb-8">
             <thead>
@@ -38,52 +19,44 @@ const page = () => {
             <tbody>
               <tr>
                 <td className="px-4 py-6">
-                  <div className="flex gap-4 flex-col lg:gap-6 md:flex-row">
+                  <div className="flex gap-4 flex-col md:flex-row">
                     <Image
                       src="/cart2.png"
                       alt="Product 1"
                       className="w-[109px] h-[134px] object-cover"
                     />
                     <div>
-                      <h3 className="font-clash-display text-[20px] text-darkPrimary">
-                        Graystone Vase
-                      </h3>
+                      <h3 className="font-clash-display text-[20px] text-darkPrimary">Graystone Vase</h3>
                       <p className="font-satoshi text-[14px] text-Primary">
                         A timeless ceramic vase with <br /> a tri-color grey glaze.
                       </p>
-                      <p className="font-clash-display text-[20px] text-darkPrimary">
-                        £85
-                      </p>
+                      <p className="font-clash-display text-[20px] text-darkPrimary">£85</p>
                     </div>
                   </div>
                 </td>
-                <td className="px-4 py-2 text-darkPrimary">1</td>
-                <td className="px-4 py-2 text-darkPrimary">£85</td>
+                <td className="px-4 py-2">1</td>
+                <td className="px-4 py-2">£85</td>
               </tr>
 
               <tr>
                 <td className="px-4 py-6">
-                  <div className="flex gap-4 flex-col lg:gap-6 md:flex-row">
+                  <div className="flex gap-4 flex-col md:flex-row">
                     <Image
                       src="/cart1.png"
                       alt="Product 2"
                       className="w-[109px] h-[134px] object-cover"
                     />
                     <div>
-                      <h3 className="font-clash-display text-[20px] text-darkPrimary">
-                        Basic White Vase
-                      </h3>
+                      <h3 className="font-clash-display text-[20px] text-darkPrimary">Basic White Vase</h3>
                       <p className="font-satoshi text-[14px] text-Primary">
                         Beautiful and simple this <br /> is one for the classics.
                       </p>
-                      <p className="font-clash-display text-[20px] text-darkPrimary">
-                        £85
-                      </p>
+                      <p className="font-clash-display text-[20px] text-darkPrimary">£85</p>
                     </div>
                   </div>
                 </td>
-                <td className="px-4 py-2 text-darkPrimary">1</td>
-                <td className="px-4 py-2 text-darkPrimary">£85</td>
+                <td className="px-4 py-2">1</td>
+                <td className="px-4 py-2">£85</td>
               </tr>
             </tbody>
           </table>
@@ -91,9 +64,7 @@ const page = () => {
 
         <div className="flex flex-col items-end gap-4">
           <div className="text-right">
-            <h1 className="font-clash-display text-[20px] text-darkPrimary font-bold my-2">
-              Subtotal £210
-            </h1>
+            <h1 className="font-clash-display text-[20px] text-darkPrimary font-bold my-2">Subtotal £210</h1>
             <p className="font-satoshi text-[14px] text-darkPrimary">
               Taxes and shipping are calculated at checkout
             </p>
@@ -109,7 +80,5 @@ const page = () => {
 };
 
 export default page;
-
-
 
 
