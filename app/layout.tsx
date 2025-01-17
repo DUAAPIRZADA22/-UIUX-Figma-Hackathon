@@ -4,6 +4,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { CartProvider } from "@/app/context/CardContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,9 +28,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} `}>
+      <CartProvider>
         <Navbar/>
         {children}
         <Footer/>
+        </CartProvider>
         </body>
     </html>
   );

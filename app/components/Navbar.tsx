@@ -26,7 +26,9 @@ const Navbar = () => {
           <Link href="/cart">
             <FiShoppingCart className="w-5 h-5" />
           </Link>
+          <Link href="/">
           <VscAccount className="w-5 h-5" />
+          </Link>
           <GiHamburgerMenu
             className="w-6 h-6 sm:hidden cursor-pointer"
             onClick={toggleMenu}
@@ -63,7 +65,7 @@ const Navbar = () => {
       )}
 
    
-      <div className="justify-center items-start h-auto sm:h-[250px] font-satoshi text-[18px] mt-4 text-gray-500 font-light sm:block hidden">
+      <div className="justify-center items-start h-auto sm:h-[250px] font-satoshi text-[18px] mt-0 text-gray-500 font-light sm:block hidden">
         <div className="grid gap-2 sm:gap-4 grid-cols-3 sm:grid-cols-4 md:grid-cols-7 sm:flex sm:justify-center">
           {[
             "Plant pots",

@@ -44,6 +44,8 @@ const Ceramics = () => {
             <Image
               src={product.image}
               alt={product.name}
+              width={1000} 
+              height={1000}
               className="w-[260px] h-[300px] object-cover font-bold shadow-md"
             />
             <div className="text-darkPrimary font-bold text-[18px] md:text-[20px] font-clash-display mt-2">
@@ -56,7 +58,7 @@ const Ceramics = () => {
         ))}
       </div>
 
-      <div className="w-[200px] h-[56px] bg-gray-100 text-darkPrimary flex items-center justify-center gap-2 mt-10 mx-auto shadow-sm hover:shadow-lg transition-shadow">
+      <div className="w-[200px] h-[56px] bg-gray-200 text-darkPrimary flex items-center justify-center gap-2 mt-10 mx-auto shadow-sm hover:shadow-lg transition-shadow">
         <button className="w-full h-full text-center font-satoshi text-sm">
           View Collection
         </button>

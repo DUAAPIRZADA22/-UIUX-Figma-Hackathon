@@ -16,7 +16,8 @@ const Last = () => {
           became the hotbed for the London interior design community.
         </p>
 
-        <button className="mt-auto bg-gray-100 text-darkPrimary w-[150px] h-[56px] flex items-center justify-center font-satoshi rounded-md">
+        <button className="mt-auto bg-gray-200 text-darkPrimary w-[150px] h-[56px] flex items-center justify-center font-satoshi 
+        hover:shadow-lg transition-shadow rounded-md">
           Get in Touch
         </button>
       </div>
@@ -25,6 +26,7 @@ const Last = () => {
         <Image
           src="/d1.png"
           alt="Decorative"
+          width={1000} height={1000}
           className="w-full h-full object-cover"
         />
       </div>
