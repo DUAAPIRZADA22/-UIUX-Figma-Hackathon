@@ -1,7 +1,26 @@
-import { urlFor } from "@/sanity/lib/image";
+import { urlFor } from "../../sanity/lib/image";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+
+interface Products {
+  name: string
+  price: number
+  salesPrize?: number
+  tags?: string[]
+  description: string
+  size?: string[]
+  height?: number
+  width?: number 
+  _id: string,
+  quantity?: number
+slug: {
+  current: string;
+},
+index?: number; 
+image: string,
+
+}
 
 const RelatedProducts = ({ product }: { product: Products }) => {
   return (
