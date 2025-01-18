@@ -1,121 +1,74 @@
 "use client";
 
 import React, { createContext, useReducer, useContext, useEffect, ReactNode } from "react";
- 
+
+interface Product {
+  _id: string;
+  name: string;
+  price: number;
+  image: string;
+  description: string;
+  quantity: number;
+}
+
 interface CartState {
-    cart: Products[];
-  }
-  
-  type CartAction =
-    | { type: "SET_CART"; cart: Products[] }
-    | { type: "ADD_TO_CART"; product: Products }
-    | { type: "REMOVE_FROM_CART"; id: string }
-    | { type: "UPDATE_QUANTITY"; id: string; quantity: number }
-    | { type: "CLEAR_CART" };
+  cart: Product[];
+}
 
+type CartAction =
+  | { type: "ADD_TO_CART"; product: Product }
+  | { type: "REMOVE_FROM_CART"; id: string }
+  | { type: "UPDATE_QUANTITY"; id: string; quantity: number }
+  | { type: "CLEAR_CART" };
 
-// Add types for context value
 interface CartContextValue {
   state: CartState;
   dispatch: React.Dispatch<CartAction>;
-  // Add helpful computed values
   totalItems: number;
   totalPrice: number;
 }
 
+const CartContext = createContext<CartContextValue | undefined>(undefined);
 
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
-    case "SET_CART":
-      return { cart: action.cart };
-
     case "ADD_TO_CART": {
-      const existingProductIndex = state.cart.findIndex(
-        (item) => item._id === action.product._id
-      );
-
-      if (existingProductIndex !== -1) {
+      const existingProductIndex = state.cart.findIndex((item) => item._id === action.product._id);
+      if (existingProductIndex >= 0) {
         const updatedCart = [...state.cart];
-        const existingItem = updatedCart[existingProductIndex];
-        updatedCart[existingProductIndex] = {
-          ...existingItem,
-          quantity: (existingItem.quantity || 1) + (action.product.quantity || 1),
-        };
+        updatedCart[existingProductIndex].quantity += action.product.quantity || 1;
         return { ...state, cart: updatedCart };
       }
-
-      return {
-        ...state,
-        cart: [...state.cart, action.product],
-      };
+      return { ...state, cart: [...state.cart, action.product] };
     }
-
     case "REMOVE_FROM_CART":
-      return {
-        ...state,
-        cart: state.cart.filter((item) => item._id !== action.id),
-      };
-
+      return { ...state, cart: state.cart.filter((item) => item._id !== action.id) };
     case "UPDATE_QUANTITY":
       return {
         ...state,
         cart: state.cart.map((item) =>
-          item._id === action.id 
-            ? { ...item, quantity: Math.max(0, action.quantity) }
-            : item
+          item._id === action.id ? { ...item, quantity: action.quantity } : item
         ),
       };
-
     case "CLEAR_CART":
-      return { cart: [] };
-
+      return { ...state, cart: [] };
     default:
       return state;
   }
 };
-// Initialize context with undefined
-const CartContext = createContext<CartContextValue | undefined>(undefined);
 
-// Add loading state management
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(
-    cartReducer,
-    { cart: [] },
-    (initialState) => {
-      if (typeof window !== "undefined") {
-        try {
-          const storedCart = localStorage.getItem("cart");
-          return storedCart ? { cart: JSON.parse(storedCart) } : initialState;
-        } catch (error) {
-          console.error("Error loading cart from localStorage:", error);
-          return initialState;
-        }
-      }
-      return initialState;
-    }
-  );
+  const [state, dispatch] = useReducer(cartReducer, { cart: [] });
 
-  // Calculate totals
   const totalItems = state.cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
   const totalPrice = state.cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
 
   useEffect(() => {
-    try {
-      localStorage.setItem("cart", JSON.stringify(state.cart));
-    } catch (error) {
-      console.error("Error saving cart to localStorage:", error);
-    }
+    localStorage.setItem("cart", JSON.stringify(state.cart));
   }, [state.cart]);
 
-  const contextValue: CartContextValue = {
-    state,
-    dispatch,
-    totalItems,
-    totalPrice
-  };
-
   return (
-    <CartContext.Provider value={contextValue}>
+    <CartContext.Provider value={{ state, dispatch, totalItems, totalPrice }}>
       {children}
     </CartContext.Provider>
   );

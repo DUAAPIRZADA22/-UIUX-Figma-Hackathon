@@ -7,6 +7,25 @@ import { urlFor } from "../../sanity/lib/image";
 import { useCallback } from "react";
 import { Toast } from "./Toast";
 
+interface Products {
+  name: string
+  price: number
+  salesPrize?: number
+  tags?: string[]
+  description: string
+  size?: string[]
+  height?: number
+  width?: number 
+  _id: string,
+  quantity?: number
+slug?: {
+  current: string;
+},
+index?: number; 
+image: string,
+
+}
+
 const SingleProduct = ({product}: {product: Products}) => {
 
 const { dispatch } = useCart();
