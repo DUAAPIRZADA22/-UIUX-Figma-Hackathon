@@ -1,8 +1,21 @@
 import React from "react";
 import { client } from "../../../sanity/lib/client";
-import Link from "next/link";
 import SingleProduct from "../../components/SingleProduct";
 import RelatedProducts from "../../components/RelatedProducts";
+
+interface Product {
+  image: string;
+  _id: string;
+  name: string;
+  price: number;
+  salesPrice?: number; // Optional field
+  description: string;
+  tags: string[];
+  sizes?: string[]; // Optional field
+  slug: {
+    current: string;
+  };
+}
 
 interface PageProps {
   params: {
@@ -10,19 +23,20 @@ interface PageProps {
   };
 }
 
-const page = async ({ params: { slug } }: { params: { slug: string } }) => {
+const page = async ({ params }: PageProps) => {
+  const { slug } = params;
 
   // Query to fetch the single product details
   const query = `*[_type == "product" && slug.current == $slug][0]{
     image, name, price, salesPrice, description, tags, sizes, slug
   }`;
-  const product = await client.fetch(query, { slug });
+  const product: Product = await client.fetch(query, { slug });
 
   // Query to fetch related products
   const relatedProductsQuery = `*[_type == "product" && slug.current != $slug]{
     image, name, price, salesPrice, description, tags, sizes, slug
   }`;
-  const products = await client.fetch(relatedProductsQuery, { slug });
+  const products: Product[] = await client.fetch(relatedProductsQuery, { slug });
   const displayedProducts = products.slice(0, 5);
 
   return (
@@ -31,8 +45,8 @@ const page = async ({ params: { slug } }: { params: { slug: string } }) => {
       <div className="mt-10">
         <h2 className="text-xl font-bold mb-5">Related Products</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {displayedProducts.map((relatedProduct: any) => (
-            <RelatedProducts key={relatedProduct.slug} product={relatedProduct} />
+          {displayedProducts.map((relatedProduct) => (
+            <RelatedProducts key={relatedProduct.slug.current} product={relatedProduct} />
           ))}
         </div>
       </div>
