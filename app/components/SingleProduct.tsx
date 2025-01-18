@@ -1,9 +1,9 @@
 "use client"; 
-import { useCart } from "@/app/context/CardContext";``
+import { useCart } from "../context/CardContext";``
 import { PiShoppingCart } from "react-icons/pi";
 import React, { useState } from "react";
 import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
+import { urlFor } from "../../sanity/lib/image";
 import { useCallback } from "react";
 import { Toast } from "./Toast";
 
