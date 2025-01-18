@@ -13,7 +13,7 @@ const Navbar = () => {
 
   return (
     <div className="bg-white relative">
-      <nav className="flex items-center justify-between px-5 h-16 border-b border-gray-200">
+      <nav className="flex items-center justify-between px-5 border-b border-gray-200">
         <div className="flex justify-start">
           <CiSearch className="w-5 h-5" />
         </div>

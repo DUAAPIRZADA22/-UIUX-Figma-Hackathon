@@ -15,7 +15,7 @@ interface Products {
   index?: number; 
   image: string,
   
-};
+}
 
 interface ProductsCard{
   _id: string;

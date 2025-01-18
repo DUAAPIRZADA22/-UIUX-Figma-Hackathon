@@ -1,3 +1,4 @@
+// app/products/page.tsx
 "use client";
 import { client } from '../../sanity/lib/client';
 import Image from 'next/image';
@@ -18,11 +19,11 @@ interface ProductsCard {
   };
 }
 
-const Products = () => {
-  const [products, setProducts] = useState<ProductsCard[]>([]);
+const Page = () => {
+  const [allProducts, setAllProducts] = useState<ProductsCard[]>([]);
 
-  const fetchProducts = async () => {
-    const query = `*[_type == "product"][0...3]{
+  const fetchAllProducts = async () => {
+    const query = `*[_type == "product"]{
       _id,
       name,
       height,
@@ -33,22 +34,25 @@ const Products = () => {
       slug
     }`;
     const products = await client.fetch(query);
-    setProducts(products);
+    setAllProducts(products);
   };
 
   useEffect(() => {
-    fetchProducts();
+    fetchAllProducts();
   }, []);
 
   return (
     <section>
       <div className="px-8 py-12 text-[#2A254B] mt-12">
         <div className="text-darkPrimary font-extrabold text-[30px] font-clash-display mt-[80px] ml-[70px]">
-          Our Popular Products
+          All Products
         </div>
-        <div className="flex flex-col md:flex-row gap-8 mt-8">
-          {products.map((product, index) => (
-            <div key={index} className="transition-transform hover:scale-105">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+          {allProducts.map((product, index) => (
+            <div
+              key={index}
+              className="transition-transform hover:scale-105 flex flex-col items-center"
+            >
               <Link href={`/product/${product.slug.current}`}>
                 <Image
                   src={product.image ? urlFor(product.image).url() : '/placeholder.png'}
@@ -58,32 +62,17 @@ const Products = () => {
                   className="w-full h-[80%] object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
                 />
               </Link>
-              <div className="mt-4 text-[#2A254B]">
+              <div className="mt-4 text-[#2A254B] text-center">
                 <p className="py-2 text-[20px] font-satoshi font-bold">{product.name}</p>
-                <p>${product.price}</p>
+                <p className="text-lg">${product.price}</p>
               </div>
             </div>
           ))}
-        </div>
-        <div className="my-10 flex justify-center items-center">
-          <Link href="/products">
-            <button className="bg-gray-200 py-4 px-6 rounded-[5px] text-[#2A254B] hover:shadow-lg transition-shadow">
-              View All Products
-            </button>
-          </Link>
         </div>
       </div>
     </section>
   );
 };
 
-export default Products;
-
-
-
-
-
-
-
-
+export default Page;
 

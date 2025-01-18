@@ -7,12 +7,11 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
     "strict": true,
     "noEmit": true,
-    "esModuleInterop": true, 
+    "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -23,20 +22,21 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./*"
+      "@/": [
+        "./"
       ]
     },
-    "target": "ES2020"
+    "target": "ES2017"
   },
   "include": [
+    ".next/types/**/.ts",
+    "/*.ts",
+    "/.tsx",
+    "app/contact",
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
     ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
   ]
 }
-
