@@ -10,8 +10,7 @@ interface PageProps {
   };
 }
 
-const Page = async ({ params }: PageProps) => {
-  const { slug } = params;
+const page = async ({ params: { slug } }: { params: { slug: string } }) => {
 
   // Query to fetch the single product details
   const query = `*[_type == "product" && slug.current == $slug][0]{
@@ -41,5 +40,5 @@ const Page = async ({ params }: PageProps) => {
   );
 };
 
-export default Page;
+export default page;
 
