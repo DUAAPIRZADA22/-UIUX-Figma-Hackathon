@@ -8,10 +8,10 @@ interface Product {
   _id: string;
   name: string;
   price: number;
-  salesPrice?: number; // Optional field
+  salesPrice?: number; 
   description: string;
   tags: string[];
-  sizes?: string[]; // Optional field
+  sizes?: string[]; 
   slug: {
     current: string;
   };
@@ -23,10 +23,9 @@ interface PageProps {
   };
 }
 
-const page = async ({ params }: PageProps) => {
+const Page = async ({ params }: PageProps) => {
   const { slug } = params;
 
-  // Query to fetch the single product details
   const query = `*[_type == "product" && slug.current == $slug][0]{
     image, name, price, salesPrice, description, tags, sizes, slug
   }`;
@@ -54,5 +53,6 @@ const page = async ({ params }: PageProps) => {
   );
 };
 
-export default page;
+export default Page;
+
 

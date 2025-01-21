@@ -5,6 +5,7 @@ import Navbar from "../app/components/Navbar";
 import Footer from "../app/components/Footer";
 import { CartProvider } from "./context/CardContext";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,11 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className}`}>
+       
         <CartProvider>
         <Navbar />
         {children}
         <Footer />
         </CartProvider>
+       
       </body>
     </html>
   );
