@@ -17,7 +17,7 @@ interface Product {
   };
 }
 
-// You do not need to manually define PageProps, Next.js already provides the necessary types.
+// Update PageProps to handle params properly
 type PageProps = {
   params: { slug: string };
 };
@@ -53,6 +53,7 @@ const Page = async ({ params }: PageProps) => {
 };
 
 export default Page;
+
 
 
 
