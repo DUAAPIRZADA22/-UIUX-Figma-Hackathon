@@ -21,6 +21,7 @@ interface WishlistContextValue {
   dispatch: React.Dispatch<WishlistAction>;
   totalItems: number;
   moveToCart: (product: WishlistItem) => void; // Function to move items to cart
+  cartDispatch: React.Dispatch<any>; // Added cartDispatch here
 }
 
 // Define the action types for the wishlist
@@ -92,6 +93,8 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
     }
   );
 
+  const { dispatch: cartDispatch } = useCart(); // Get cartDispatch here
+
   const totalItems = state.wishlist.length;
 
   useEffect(() => {
@@ -103,8 +106,6 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
   }, [state.wishlist]);
 
   const moveToCart = (product: WishlistItem) => {
-    const { dispatch: cartDispatch } = useCart();
-
     const productWithDetails: Products = {
       ...product,
       name: product.title, // Assuming 'title' is the 'name' for the product
@@ -124,6 +125,7 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
     dispatch,
     totalItems,
     moveToCart,
+    cartDispatch, // Pass cartDispatch here
   };
 
   return (
@@ -141,5 +143,6 @@ export const useWishlist = () => {
   }
   return context;
 };
+
 
 

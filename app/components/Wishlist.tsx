@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useWishlist } from "../context/WishlistContext";
 import { useCart } from "../context/CardContext"; // Importing CartContext
 import { urlFor } from "../../sanity/lib/image";
+import Image from "next/image"; // Import Image component
 import { Toast } from "../components/Toast"; // Assuming you have a Toast component
 
 const Wishlist = () => {
@@ -49,9 +50,12 @@ const Wishlist = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {wishlistState.wishlist.map((product) => (
             <div key={product._id} className="border rounded-lg p-4">
-              <img
+              {/* Use Image component instead of img */}
+              <Image
                 src={urlFor(product.image).url()}
                 alt={product.name}
+                width={400}  // Specify the width and height
+                height={160} // Specify the height
                 className="w-full h-40 object-cover mb-4"
               />
               <h3 className="text-lg font-semibold">{product.name}</h3>
@@ -84,6 +88,7 @@ const Wishlist = () => {
 };
 
 export default Wishlist;
+
 
 
 

@@ -5,6 +5,7 @@ import Ceramics from "./components/Ceramics";
 import Products from "./components/Products";
 import Join from "./components/Join";
 import Last from "./components/Last";
+import Image from "next/image";
 
 const Page = () => {
   return (
@@ -32,7 +33,7 @@ const Page = () => {
           </div>
 
           <div className="w-full md:w-[520px] h-auto flex justify-center md:justify-start mt-6 md:mt-0">
-            <img
+            <Image
               src="/home.png"
               alt="Furniture"
               className="w-full h-auto object-cover md:max-w-[520px] sm:w-full md:h-[584px] sm:h-[400px] lg:h-[584px]"
