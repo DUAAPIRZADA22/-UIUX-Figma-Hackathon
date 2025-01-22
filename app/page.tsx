@@ -7,10 +7,8 @@ import Join from "./components/Join";
 import Last from "./components/Last";
 import Image from "next/image";
 
-
 const Page = () => {
   return (
-    
     <div className="bg-white">
       <div className="relative sm:-mt-28 md:-mt-20">
         <div className="flex flex-col md:flex-row items-center justify-start px-6 md:px-8 space-x-0">
@@ -41,6 +39,7 @@ const Page = () => {
               width={1000}
               height={1000}
               className="w-full h-auto object-cover md:max-w-[520px] sm:w-full md:h-[584px] sm:h-[400px] lg:h-[584px]"
+              priority 
             />
           </div>
         </div>
@@ -52,11 +51,11 @@ const Page = () => {
       <Join />
       <Last />
     </div>
-
   );
 };
 
 export default Page;
+
 
 
 

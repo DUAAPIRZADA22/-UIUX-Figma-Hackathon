@@ -20,6 +20,7 @@ interface Product {
 // Update PageProps to handle params properly
 type PageProps = {
   params: { slug: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
 };
 
 const Page = async ({ params }: PageProps) => {
