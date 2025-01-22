@@ -1,66 +1,139 @@
 "use client";
-import React, { createContext, useReducer, useContext, useEffect, ReactNode } from "react";
 
-// Product Interface
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  image: string;
-}
+import React, {
+  createContext,
+  useReducer,
+  useContext,
+  useEffect,
+  ReactNode,
+} from "react";
+import { useCart } from "../context/CardContext";
+import { WishlistItem, Products } from "../../typings";
 
+// Define the shape of our wishlist state
 interface WishlistState {
-  wishlist: Product[];
+  wishlist: WishlistItem[]; // Type for items in the wishlist
 }
 
-type WishlistAction =
-  | { type: "ADD_TO_WISHLIST"; product: Product }
-  | { type: "REMOVE_FROM_WISHLIST"; id: string }
-  | { type: "CLEAR_WISHLIST" };
-
+// Define what values our context will provide
 interface WishlistContextValue {
   state: WishlistState;
   dispatch: React.Dispatch<WishlistAction>;
+  totalItems: number;
+  moveToCart: (product: WishlistItem) => void; // Function to move items to cart
 }
 
-const WishlistContext = createContext<WishlistContextValue | undefined>(undefined);
+// Define the action types for the wishlist
+type WishlistAction =
+  | { type: "SET_WISHLIST"; product?: WishlistItem }
+  | { type: "ADD_TO_WISHLIST"; product: WishlistItem }
+  | { type: "REMOVE_FROM_WISHLIST"; id: string }
+  | { type: "CLEAR_WISHLIST" };
 
-const wishlistReducer = (state: WishlistState, action: WishlistAction): WishlistState => {
+// Create our reducer to handle wishlist state changes
+const wishlistReducer = (
+  state: WishlistState,
+  action: WishlistAction
+): WishlistState => {
   switch (action.type) {
-    case "ADD_TO_WISHLIST":
-      if (state.wishlist.find((item) => item.id === action.product.id)) return state;
-      return { ...state, wishlist: [...state.wishlist, action.product] };
+    case "SET_WISHLIST":
+      return { wishlist: action.product ? [action.product] : [] };
+
+    case "ADD_TO_WISHLIST": {
+      if (
+        action.product &&
+        !state.wishlist.some((item) => item._id === action.product._id)
+      ) {
+        return {
+          ...state,
+          wishlist: [...state.wishlist, action.product],
+        };
+      }
+      return state;
+    }
+
     case "REMOVE_FROM_WISHLIST":
-      return { ...state, wishlist: state.wishlist.filter((item) => item.id !== action.id) };
+      return {
+        ...state,
+        wishlist: state.wishlist.filter((item) => item._id !== action.id),
+      };
+
     case "CLEAR_WISHLIST":
-      return { ...state, wishlist: [] };
+      return { wishlist: [] };
+
     default:
       return state;
   }
 };
 
+// Create the context
+const WishlistContext = createContext<WishlistContextValue | undefined>(
+  undefined
+);
+
+// Create the provider component
 export const WishlistProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(wishlistReducer, { wishlist: [] });
+  const [state, dispatch] = useReducer(
+    wishlistReducer,
+    { wishlist: [] },
+    (initialState) => {
+      if (typeof window !== "undefined") {
+        try {
+          const storedWishlist = localStorage.getItem("wishlist");
+          return storedWishlist
+            ? { wishlist: JSON.parse(storedWishlist) }
+            : initialState;
+        } catch (error) {
+          console.error("Error loading wishlist from localStorage:", error);
+          return initialState;
+        }
+      }
+      return initialState;
+    }
+  );
+
+  const totalItems = state.wishlist.length;
 
   useEffect(() => {
-    const savedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
-    dispatch({ type: "CLEAR_WISHLIST" });
-    savedWishlist.forEach((product: Product) =>
-      dispatch({ type: "ADD_TO_WISHLIST", product })
-    );
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("wishlist", JSON.stringify(state.wishlist));
+    try {
+      localStorage.setItem("wishlist", JSON.stringify(state.wishlist));
+    } catch (error) {
+      console.error("Error saving wishlist to localStorage:", error);
+    }
   }, [state.wishlist]);
 
+  const moveToCart = (product: WishlistItem) => {
+    const { dispatch: cartDispatch } = useCart();
+
+    const productWithDetails: Products = {
+      ...product,
+      name: product.title, // Assuming 'title' is the 'name' for the product
+      description: "", // Provide a default description or fetch it if possible
+    };
+
+    cartDispatch({
+      type: "ADD_TO_CART",
+      product: { ...productWithDetails, quantity: 1 },
+    });
+
+    dispatch({ type: "REMOVE_FROM_WISHLIST", id: product._id });
+  };
+
+  const contextValue: WishlistContextValue = {
+    state,
+    dispatch,
+    totalItems,
+    moveToCart,
+  };
+
   return (
-    <WishlistContext.Provider value={{ state, dispatch }}>
+    <WishlistContext.Provider value={contextValue}>
       {children}
     </WishlistContext.Provider>
   );
 };
 
+// Custom hook to use the wishlist
 export const useWishlist = () => {
   const context = useContext(WishlistContext);
   if (!context) {
@@ -68,3 +141,5 @@ export const useWishlist = () => {
   }
   return context;
 };
+
+

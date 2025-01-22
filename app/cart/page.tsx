@@ -1,12 +1,21 @@
 "use client";
 import React, { useState } from "react";
-import { useCart } from "../context/CardContext"; 
+import { useCart } from "../context/CardContext";
 import Image from "next/image";
-import { urlFor } from "../../sanity/lib/image"; 
+import { urlFor } from "../../sanity/lib/image";
 
 const Page = () => {
   const { state, dispatch, totalItems, totalPrice } = useCart();
-  const [isCheckout, setIsCheckout] = useState(false); // Toggle for showing checkout form
+  const [isCheckout, setIsCheckout] = useState(false);
+  const [isOrderSummary, setIsOrderSummary] = useState(false);
+  const [billingDetails, setBillingDetails] = useState({
+    name: "",
+    email: "",
+    address: "",
+    city: "",
+    zip: "",
+    paymentMethod: "Credit Card", // Default payment method
+  });
 
   const handleRemove = (id: string) => {
     dispatch({ type: "REMOVE_FROM_CART", id });
@@ -14,16 +23,23 @@ const Page = () => {
 
   const handleQuantityChange = (id: string, e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
-    if (value < 1) return; // Minimum quantity is 1
+    if (value < 1) return;
     dispatch({ type: "UPDATE_QUANTITY", id, quantity: value });
   };
 
   const handleCheckoutClick = () => {
-    setIsCheckout(true); // Show checkout form when user clicks on the checkout button
+    setIsCheckout(true);
+  };
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsCheckout(false);
+    setIsOrderSummary(true);
   };
 
   const handleBackToCart = () => {
-    setIsCheckout(false); // Go back to cart
+    setIsCheckout(false);
+    setIsOrderSummary(false);
   };
 
   return (
@@ -34,8 +50,7 @@ const Page = () => {
           <p className="text-xl">Your cart is empty!</p>
         ) : (
           <>
-            {!isCheckout ? (
-              // Cart Page
+            {!isCheckout && !isOrderSummary && (
               <>
                 <div className="overflow-x-auto">
                   <table className="table-auto w-full border-collapse mb-8">
@@ -49,11 +64,15 @@ const Page = () => {
                     </thead>
                     <tbody>
                       {state.cart.map((item, index) => (
-                        <tr key={item._id || index}> 
+                        <tr key={item._id || index}>
                           <td className="px-4 py-6">
                             <div className="flex gap-4 items-center">
                               <Image
-                                src={item.image ? urlFor(item.image).width(100).height(100).url() : '/cart2.png'}
+                                src={
+                                  item.image
+                                    ? urlFor(item.image).width(100).height(100).url()
+                                    : "/cart2.png"
+                                }
                                 alt={item.name}
                                 width={150}
                                 height={150}
@@ -74,7 +93,9 @@ const Page = () => {
                               className="w-16 border rounded px-2 py-1"
                             />
                           </td>
-                          <td className="px-4 py-2">£{(item.price * (item.quantity || 1)).toFixed(2)}</td>
+                          <td className="px-4 py-2">
+                            £{(item.price * (item.quantity || 1)).toFixed(2)}
+                          </td>
                           <td className="px-4 py-2">
                             <button
                               onClick={() => handleRemove(item._id)}
@@ -91,63 +112,143 @@ const Page = () => {
 
                 <div className="text-right">
                   <h2 className="text-xl font-bold">Subtotal: £{totalPrice.toFixed(2)}</h2>
-                  <p className="text-gray-500 text-sm mb-4">Taxes and shipping calculated at checkout</p>
                   <button
                     onClick={handleCheckoutClick}
                     className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
                   >
-                    Go to Checkout
+                    Proceed to Checkout
                   </button>
                 </div>
               </>
-            ) : (
-              // Checkout Form
-              <div className="max-w-lg mx-auto">
-                <h2 className="text-2xl font-semibold mb-4">Checkout</h2>
-                <form>
-                  <div className="mb-4">
-                    <label className="block text-lg mb-2">Billing Address</label>
-                    <input
-                      type="text"
-                      placeholder="Enter billing address"
-                      className="w-full p-2 border rounded"
-                    />
-                  </div>
+            )}
 
-                  <div className="mb-4">
-                    <label className="block text-lg mb-2">Shipping Address</label>
-                    <input
-                      type="text"
-                      placeholder="Enter shipping address"
-                      className="w-full p-2 border rounded"
-                    />
-                  </div>
+            {/* Checkout Form */}
+            {isCheckout && !isOrderSummary && (
+              <div className="flex justify-center py-8">
+                <form
+                  onSubmit={handleFormSubmit}
+                  className="w-full max-w-lg p-6 border rounded shadow-lg bg-gray-100"
+                >
+                  <h2 className="text-2xl font-bold text-center mb-6">Billing Address</h2>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-lg">Name</label>
+                      <input
+                        type="text"
+                        value={billingDetails.name}
+                        onChange={(e) =>
+                          setBillingDetails({ ...billingDetails, name: e.target.value })
+                        }
+                        required
+                        className="w-full px-4 py-2 border rounded"
+                      />
+                    </div>
 
-                  <div className="mb-4">
-                    <label className="block text-lg mb-2">Payment Information</label>
-                    <input
-                      type="text"
-                      placeholder="Enter payment info (Mock)"
-                      className="w-full p-2 border rounded"
-                    />
-                  </div>
+                    <div>
+                      <label className="block text-lg">Email</label>
+                      <input
+                        type="email"
+                        value={billingDetails.email}
+                        onChange={(e) =>
+                          setBillingDetails({ ...billingDetails, email: e.target.value })
+                        }
+                        required
+                        className="w-full px-4 py-2 border rounded"
+                      />
+                    </div>
 
-                  <div className="text-right">
-                    <button
-                      type="button"
-                      onClick={handleBackToCart}
-                      className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
-                    >
-                      Back to Cart
-                    </button>
-                    <button
-                      type="submit"
-                      className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 ml-4"
-                    >
-                      Submit Order
-                    </button>
+                    <div>
+                      <label className="block text-lg">Address</label>
+                      <input
+                        type="text"
+                        value={billingDetails.address}
+                        onChange={(e) =>
+                          setBillingDetails({ ...billingDetails, address: e.target.value })
+                        }
+                        required
+                        className="w-full px-4 py-2 border rounded"
+                      />
+                    </div>
+
+                    <div className="flex gap-4">
+                      <div className="w-1/2">
+                        <label className="block text-lg">City</label>
+                        <input
+                          type="text"
+                          value={billingDetails.city}
+                          onChange={(e) =>
+                            setBillingDetails({ ...billingDetails, city: e.target.value })
+                          }
+                          required
+                          className="w-full px-4 py-2 border rounded"
+                        />
+                      </div>
+                      <div className="w-1/2">
+                        <label className="block text-lg">Zip Code</label>
+                        <input
+                          type="text"
+                          value={billingDetails.zip}
+                          onChange={(e) =>
+                            setBillingDetails({ ...billingDetails, zip: e.target.value })
+                          }
+                          required
+                          className="w-full px-4 py-2 border rounded"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Payment Method */}
+                    <div>
+                      <label className="block text-lg">Payment Method</label>
+                      <select
+                        value={billingDetails.paymentMethod}
+                        onChange={(e) =>
+                          setBillingDetails({ ...billingDetails, paymentMethod: e.target.value })
+                        }
+                        className="w-full px-4 py-2 border rounded"
+                      >
+                        <option value="Credit Card">Credit Card</option>
+                        <option value="PayPal">PayPal</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
+                      </select>
+                    </div>
+
+                    <div className="text-center mt-6">
+                      <button
+                        type="submit"
+                        className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+                      >
+                        Submit Order
+                      </button>
+                    </div>
                   </div>
                 </form>
+              </div>
+            )}
+
+            {/* Order Summary */}
+            {isOrderSummary && (
+              <div className="py-8 px-6 max-w-lg mx-auto border rounded shadow-lg bg-gray-100">
+                <h2 className="text-2xl font-bold text-center mb-6">Order Summary</h2>
+                <div>
+                  <p className="text-lg">Name: {billingDetails.name}</p>
+                  <p className="text-lg">Email: {billingDetails.email}</p>
+                  <p className="text-lg">Address: {billingDetails.address}</p>
+                  <p className="text-lg">City: {billingDetails.city}</p>
+                  <p className="text-lg">Zip Code: {billingDetails.zip}</p>
+                  <p className="text-lg">Payment Method: {billingDetails.paymentMethod}</p>
+                  <h3 className="text-xl font-bold mt-4">Total: £{totalPrice.toFixed(2)}</h3>
+                  <p className="text-sm mt-2">Estimated Delivery Date: {new Date().toLocaleDateString()}</p>
+                </div>
+
+                <div className="mt-6 text-center">
+                  <button
+                    onClick={handleBackToCart}
+                    className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
+                  >
+                    Back to Cart
+                  </button>
+                </div>
               </div>
             )}
           </>
@@ -158,6 +259,9 @@ const Page = () => {
 };
 
 export default Page;
+
+
+
 
 
 

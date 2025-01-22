@@ -9,6 +9,7 @@ import { AiOutlineHeart } from "react-icons/ai"; // Wishlist icon
 import { useCart } from "../context/CardContext";
 import Link from "next/link";
 import { Toast } from "../components/Toast";
+import {WishlistButton} from "../components/WishlistButton"
 
 interface ProductsCard {
   _id: string;
@@ -17,7 +18,7 @@ interface ProductsCard {
   image: any;
   description: string;
   slug: {
-    current: string | null;
+    current: string;
   };
 }
 
@@ -150,15 +151,8 @@ const Page = () => {
                     className="text-[24px] hover:text-darkPrimary transition-colors cursor-pointer"
                   />
 
-                  {/* Wishlist Icon */}
-                  <AiOutlineHeart
-                    onClick={() => handleWishlist(product._id, product.name)}
-                    className={`text-[24px] cursor-pointer transition-colors ${
-                      wishlist.includes(product._id)
-                        ? "text-red-500"
-                        : "text-gray-500"
-                    }`}
-                  />
+                
+                  <WishlistButton product={product} />
                 </div>
               </div>
             </div>
