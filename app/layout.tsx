@@ -1,11 +1,11 @@
+import React from "react"; // Add this import
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "../app/components/Navbar";
 import Footer from "../app/components/Footer";
 import { CartProvider } from "./context/CardContext";
-import {WishlistProvider} from "../app/context/WishlistContext"
-
+import { WishlistProvider } from "../app/context/WishlistContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,15 +22,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className}`}>
-       <WishlistProvider>
-        <CartProvider>
-        <Navbar />
-        {children}
-        <Footer />
-        </CartProvider>
+      <CartProvider>
+        <WishlistProvider>
+            <Navbar />
+            {children}
+            <Footer />
         </WishlistProvider>
+        </CartProvider>
       </body>
     </html>
   );
 }
+
+
+
+
+
 

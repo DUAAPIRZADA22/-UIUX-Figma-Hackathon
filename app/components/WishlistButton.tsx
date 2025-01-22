@@ -1,7 +1,6 @@
-// WishlistButton.tsx
-"use client";
 
-import React from "react"; // Add this import
+"use client";
+import React from "react"; 
 import { useWishlist } from "../context/WishlistContext";
 import { urlFor } from "../../sanity/lib/image";
 import { Products } from "../../typings";
@@ -26,7 +25,7 @@ export const WishlistButton = ({ product }: WishlistButtonProps) => {
         type: "ADD_TO_WISHLIST",
         product: {
           _id: product._id,
-          name: product.name, // Use 'name' here
+          name: product.name, 
           price: product.price,
           image: product.image ? urlFor(product.image).url() : "",
           slug: product.slug || { current: "" },

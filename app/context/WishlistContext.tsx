@@ -7,12 +7,12 @@ import React, {
   useEffect,
   ReactNode,
 } from "react";
-import { useCart } from "../context/CardContext";
+import { useCart } from "../context/CardContext"; 
 import { WishlistItem, Products } from "../../typings";
 
 // Define the shape of our wishlist state
 interface WishlistState {
-  wishlist: WishlistItem[]; // Type for items in the wishlist
+  wishlist: WishlistItem[];
 }
 
 // Define what values our context will provide
@@ -20,8 +20,8 @@ interface WishlistContextValue {
   state: WishlistState;
   dispatch: React.Dispatch<WishlistAction>;
   totalItems: number;
-  moveToCart: (product: WishlistItem) => void; // Function to move items to cart
-  cartDispatch: React.Dispatch<any>; // Added cartDispatch here
+  moveToCart: (product: WishlistItem) => void;
+  cartDispatch: React.Dispatch<any>; 
 }
 
 // Define the action types for the wishlist
@@ -93,7 +93,7 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
     }
   );
 
-  const { dispatch: cartDispatch } = useCart(); // Get cartDispatch here
+  const { dispatch: cartDispatch } = useCart(); // Ensure this hook is valid
 
   const totalItems = state.wishlist.length;
 
@@ -108,7 +108,7 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
   const moveToCart = (product: WishlistItem) => {
     const productWithDetails: Products = {
       ...product,
-      name: product.title, // Assuming 'title' is the 'name' for the product
+      name: product.name, // Assuming 'title' is the 'name' for the product
       description: "", // Provide a default description or fetch it if possible
     };
 
@@ -125,7 +125,7 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
     dispatch,
     totalItems,
     moveToCart,
-    cartDispatch, // Pass cartDispatch here
+    cartDispatch, 
   };
 
   return (
@@ -143,6 +143,10 @@ export const useWishlist = () => {
   }
   return context;
 };
+
+
+
+
 
 
 

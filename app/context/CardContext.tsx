@@ -28,7 +28,7 @@ interface CartContextValue {
   totalPrice: number;
 }
 
-const CartContext = createContext<CartContextValue | undefined>(undefined);
+const CartContext = createContext<CartContextValue | null>(null); // Change from `undefined` to `null`
 
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
@@ -62,6 +62,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const totalItems = state.cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
   const totalPrice = state.cart.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
+
+  useEffect(() => {
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+      dispatch({ type: "ADD_TO_CART", product: JSON.parse(savedCart) });
+    }
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(state.cart));
