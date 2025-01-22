@@ -8,20 +8,21 @@ interface Product {
   _id: string;
   name: string;
   price: number;
-  salesPrice?: number; 
+  salesPrice?: number;
   description: string;
   tags: string[];
-  sizes?: string[]; 
+  sizes?: string[];
   slug: {
     current: string;
   };
 }
 
-interface PageProps {
+// Typing params correctly as Next.js expects it
+type PageProps = {
   params: {
     slug: string;
   };
-}
+};
 
 const Page = async ({ params }: PageProps) => {
   const { slug } = params;
@@ -54,5 +55,6 @@ const Page = async ({ params }: PageProps) => {
 };
 
 export default Page;
+
 
 
