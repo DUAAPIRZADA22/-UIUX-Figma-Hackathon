@@ -69,7 +69,7 @@ export default function Page() {
     return (
       <div className="max-w-7xl m-auto xl:px-0 px-5 mt-24">
         <h1 className="text-2xl font-bold">Product not found</h1>
-        <p>Sorry, we couldn't find the product you're looking for.</p>
+        <p>Sorry, we couldn&apos;t find the product you&apos;re looking for.</p>
       </div>
     );
   }
@@ -78,7 +78,7 @@ export default function Page() {
     return (
       <div className="max-w-7xl m-auto xl:px-0 px-5 mt-24">
         <h1 className="text-2xl font-bold">Product not found</h1>
-        <p>Sorry, we couldn't find the product you're looking for.</p>
+        <p>Sorry, we couldn&apos;t find the product you&apos;re looking for.</p>
       </div>
     );
   }
