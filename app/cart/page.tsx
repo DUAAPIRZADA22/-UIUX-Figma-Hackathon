@@ -73,7 +73,7 @@ const Page = () => {
                                     ? urlFor(item.image).width(100).height(100).url()
                                     : "/cart2.png"
                                 }
-                                alt={item.name}
+                                alt="Product Image"
                                 width={150}
                                 height={150}
                                 className="w-[150px] h-[150px] object-cover"
